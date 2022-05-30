@@ -79,3 +79,4 @@ PluginSource/sdk.meta
 /Assets/VLCUnity/Plugins/**
 /Assets/AssetStoreTools/
 /Assets/AssetStoreTools.meta
+Packages/packages-lock.json

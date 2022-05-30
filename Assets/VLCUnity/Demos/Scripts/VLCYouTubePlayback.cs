@@ -13,7 +13,7 @@ public class VLCYouTubePlayback : MonoBehaviour
     const int seekTimeDelta = 5000;
     Texture2D tex = null;
     bool playing;
-    
+
     async void Awake()
     {
         TextureHelper.FlipTextures(transform);
@@ -40,7 +40,7 @@ public class VLCYouTubePlayback : MonoBehaviour
         _mediaPlayer.SetTime(_mediaPlayer.Time - seekTimeDelta);
     }
 
-    void OnDisable() 
+    void OnDisable()
     {
         _mediaPlayer?.Stop();
         _mediaPlayer?.Dispose();
@@ -52,7 +52,7 @@ public class VLCYouTubePlayback : MonoBehaviour
 
     public async Task StartPlayback()
     {
-        Debug.Log ("[VLC] Toggling Play Pause !");
+        Debug.Log("[VLC] Toggling Play Pause !");
         if (_mediaPlayer == null)
         {
             _mediaPlayer = new MediaPlayer(_libVLC);
@@ -65,7 +65,7 @@ public class VLCYouTubePlayback : MonoBehaviour
         {
             playing = true;
 
-            if(_mediaPlayer.Media == null)
+            if (_mediaPlayer.Media == null)
             {
                 // playing youtube video
                 var youtubeLink = new Media(_libVLC, new Uri("https://www.youtube.com/watch?v=aqz-KE-bpKQ"));
@@ -79,18 +79,18 @@ public class VLCYouTubePlayback : MonoBehaviour
 
     public void PlayPause()
     {
-        if(_mediaPlayer.IsPlaying)
+        if (_mediaPlayer.IsPlaying)
             _mediaPlayer.Pause();
         else _mediaPlayer.Play();
     }
 
-    public void Stop ()
+    public void Stop()
     {
-        Debug.Log ("[VLC] Stopping Player !");
+        Debug.Log("[VLC] Stopping Player !");
 
         playing = false;
         _mediaPlayer?.Stop();
-        
+
         // there is no need to dispose every time you stop, but you should do so when you're done using the mediaplayer and this is how:
         // _mediaPlayer?.Dispose(); 
         // _mediaPlayer = null;
@@ -100,7 +100,7 @@ public class VLCYouTubePlayback : MonoBehaviour
 
     void Update()
     {
-        if(!playing) return;
+        if (!playing) return;
 
         if (tex == null)
         {

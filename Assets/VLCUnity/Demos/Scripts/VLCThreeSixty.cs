@@ -19,7 +19,7 @@ public class VLCThreeSixty : MonoBehaviour
     {
         Core.Initialize(Application.dataPath);
 
-        _libVLC = new LibVLC(enableDebugLogs: true);
+        _libVLC = new LibVLC(enableDebugLogs: true, "--no-osd");
 
         Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
         //_libVLC.Log += (s, e) => UnityEngine.Debug.Log(e.FormattedLog); // enable this for logs in the editor

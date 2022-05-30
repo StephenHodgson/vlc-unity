@@ -252,7 +252,7 @@ public class VLCPlayerExample : MonoBehaviour
 		}
 
 		Core.Initialize(Application.dataPath); //Load VLC dlls
-		libVLC = new LibVLC(enableDebugLogs: true); //You can customize LibVLC with advanced CLI options here https://wiki.videolan.org/VLC_command-line_help/
+		libVLC = new LibVLC(enableDebugLogs: true, "--no-osd"); //--no-osd prevents play and pause icons being overlaid on our video
 																
 		//Setup Error Logging
 		Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);

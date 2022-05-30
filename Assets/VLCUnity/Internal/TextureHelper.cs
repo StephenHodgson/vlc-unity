@@ -1,6 +1,4 @@
 using UnityEngine;
-using LibVLCSharp;
-using System;
 
 namespace LibVLCSharp
 {
@@ -11,10 +9,10 @@ namespace LibVLCSharp
     {
         public static void FlipTextures(Transform transform)
         {
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
             Vector3 rotationToAdd = new Vector3(0, 180, 0);
             transform.Rotate(rotationToAdd);
 #endif
         }
-    }    
+    }
 }

@@ -4,34 +4,35 @@ using UnityEngine;
 
 namespace LibVLCSharp
 {
-    class OnLoad
+    internal class OnLoad
     {
-#if UNITY_ANDROID
-        const string UnityPlugin = "libVLCUnityPlugin";
+#if UNITY_ANDROID && !UNITY_EDITOR
+        private const string UnityPlugin = "libVLCUnityPlugin";
 #else
-        const string UnityPlugin = "VLCUnityPlugin";
+        private const string UnityPlugin = "VLCUnityPlugin";
 #endif
+
         [DllImport(UnityPlugin, CallingConvention = CallingConvention.Cdecl, EntryPoint = "libvlc_unity_set_color_space")]
-        static extern void SetColorSpace(UnityColorSpace colorSpace);
+        private static extern void SetColorSpace(UnityColorSpace colorSpace);
 
         [DllImport(UnityPlugin, CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr GetRenderEventFunc();
+        private static extern IntPtr GetRenderEventFunc();
 
-        enum UnityColorSpace
+        private enum UnityColorSpace
         {
             Gamma = 0,
             Linear = 1,
         }
-        
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        static void OnBeforeSceneLoadRuntimeMethod()
+        private static void OnBeforeSceneLoadRuntimeMethod()
         {
-          //  Debug.Log("UnityEngine.QualitySettings.activeColorSpace: " + PlayerColorSpace);
             SetColorSpace(PlayerColorSpace);
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
             GL.IssuePluginEvent(GetRenderEventFunc(), 1);
 #endif
         }
-        static UnityColorSpace PlayerColorSpace => QualitySettings.activeColorSpace == 0 ? UnityColorSpace.Gamma : UnityColorSpace.Linear;
+
+        private static UnityColorSpace PlayerColorSpace => QualitySettings.activeColorSpace == 0 ? UnityColorSpace.Gamma : UnityColorSpace.Linear;
     }
 }
